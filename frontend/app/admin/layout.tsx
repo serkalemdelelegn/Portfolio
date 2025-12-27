@@ -12,23 +12,28 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
-    const auth = localStorage.getItem("admin_auth")
-    console.log("[v0] Admin auth check - pathname:", pathname, "auth:", !!auth)
+    try {
+      const auth = localStorage.getItem("admin_auth")
+      console.log("[v0] Admin auth check - pathname:", pathname, "auth:", !!auth)
 
-    if (auth) {
-      document.cookie = `admin_token=${auth}; path=/; max-age=86400; SameSite=Strict`
-      setIsAuthenticated(true)
-    } else {
-      document.cookie = "admin_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT"
-      setIsAuthenticated(false)
-    }
+      if (auth) {
+        document.cookie = `admin_token=${auth}; path=/; max-age=86400; SameSite=Strict`
+        setIsAuthenticated(true)
+      } else {
+        document.cookie = "admin_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT"
+        setIsAuthenticated(false)
+      }
 
-    if (!auth && pathname !== "/admin/login") {
-      router.push("/admin/login")
-    } else if (auth && pathname === "/admin/login") {
-      router.push("/admin/dashboard")
+      if (!auth && pathname !== "/admin/login") {
+        router.push("/admin/login")
+      } else if (auth && pathname === "/admin/login") {
+        router.push("/admin/dashboard")
+      }
+    } catch (error) {
+      console.error("[v0] Admin layout error:", error)
+    } finally {
+      setMounted(true)
     }
-    setMounted(true)
   }, [router, pathname])
 
   // Don't render anything until mounted to prevent hydration mismatch
