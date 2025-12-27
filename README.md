@@ -60,12 +60,12 @@ A modern, responsive portfolio website with a full-featured admin dashboard for 
 npm install
 ```
 
-3. Set up environment variables (if using database):
+<!-- 3. Set up environment variables (if using database):
 ```env
 DATABASE_URL=your_postgresql_url
 ADMIN_EMAIL=admin@example.com
 ADMIN_PASSWORD=password123
-```
+``` -->
 
 4. Initialize the database (optional):
 ```bash
