@@ -3,18 +3,33 @@ const { generateUUID } = require('../utils/uuid');
 
 class Project {
   static async findAll() {
-    const [rows] = await pool.execute(
-      `SELECT id, title, description, technologies, github_link, demo_link, image_url, display_order
-       FROM projects
-       ORDER BY display_order ASC, created_at DESC`
-    );
-    // Parse JSON technologies field
-    return rows.map(row => ({
-      ...row,
-      technologies: typeof row.technologies === 'string' 
-        ? JSON.parse(row.technologies) 
-        : row.technologies || []
-    }));
+    try {
+      const [rows] = await pool.execute(
+        `SELECT id, title, description, technologies, github_link, demo_link, image_url, display_order
+         FROM projects
+         ORDER BY display_order ASC, created_at DESC`
+      );
+      // Parse JSON technologies field
+      return rows.map(row => {
+        try {
+          return {
+            ...row,
+            technologies: typeof row.technologies === 'string' 
+              ? JSON.parse(row.technologies) 
+              : (row.technologies || [])
+          };
+        } catch (e) {
+          // If JSON parse fails, return empty array
+          return {
+            ...row,
+            technologies: []
+          };
+        }
+      });
+    } catch (error) {
+      console.error('Project.findAll error:', error);
+      throw error;
+    }
   }
 
   static async findById(id) {

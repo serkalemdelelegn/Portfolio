@@ -5,21 +5,34 @@ const getProjects = async (req, res) => {
   try {
     const projects = await Project.findAll();
     
+    // Handle empty results
+    if (!projects || projects.length === 0) {
+      return res.json([]);
+    }
+    
     // Transform to frontend format
-    const formatted = projects.map(p => ({
-      id: p.id,
-      title: p.title,
-      description: p.description,
-      technologies: Array.isArray(p.technologies) ? p.technologies : [],
-      github: p.github_link || undefined,
-      demo: p.demo_link || undefined,
-      image: p.image_url || undefined
-    }));
+    const formatted = projects.map(p => {
+      if (!p) return null;
+      return {
+        id: p.id,
+        title: p.title || '',
+        description: p.description || '',
+        technologies: Array.isArray(p.technologies) ? p.technologies : [],
+        github: p.github_link || undefined,
+        demo: p.demo_link || undefined,
+        image: p.image_url || undefined
+      };
+    }).filter(Boolean);
     
     res.json(formatted);
   } catch (error) {
     console.error('Error fetching projects:', error);
-    res.status(500).json({ error: 'Failed to fetch projects' });
+    console.error('Error details:', error.message);
+    console.error('Stack:', error.stack);
+    res.status(500).json({ 
+      error: 'Failed to fetch projects',
+      details: process.env.NODE_ENV === 'development' ? error.message : undefined
+    });
   }
 };
 

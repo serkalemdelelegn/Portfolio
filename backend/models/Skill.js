@@ -3,18 +3,23 @@ const { generateUUID } = require('../utils/uuid');
 
 class Skill {
   static async findAll(category = null) {
-    let query = 'SELECT id, name, category, level FROM skills';
-    const params = [];
-    
-    if (category) {
-      query += ' WHERE category = ?';
-      params.push(category);
+    try {
+      let query = 'SELECT id, name, category, level FROM skills';
+      const params = [];
+      
+      if (category) {
+        query += ' WHERE category = ?';
+        params.push(category);
+      }
+      
+      query += ' ORDER BY category ASC, display_order ASC';
+      
+      const [rows] = await pool.execute(query, params);
+      return rows;
+    } catch (error) {
+      console.error('Skill.findAll error:', error);
+      throw error;
     }
-    
-    query += ' ORDER BY category ASC, display_order ASC';
-    
-    const [rows] = await pool.execute(query, params);
-    return rows;
   }
 
   static async findById(id) {

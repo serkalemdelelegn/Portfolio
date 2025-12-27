@@ -95,7 +95,7 @@ export default function LoginPage() {
             {loading ? "Signing in..." : "Sign In"}
           </Button>
 
-          <p className="text-center text-sm text-muted-foreground">Demo: Use admin@example.com / password123</p>
+          <p className="text-center text-sm text-muted-foreground">Use admin@gmail.com / serk1234</p>
         </form>
       </div>
     </div>

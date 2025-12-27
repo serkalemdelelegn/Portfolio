@@ -43,15 +43,46 @@ FRONTEND_URL=http://localhost:3000
 
 ### 3. Database Setup
 
-1. Create a MySQL database:
-```sql
-CREATE DATABASE portfolio_db;
-```
+**Option A: Using MySQL Command Line (Recommended)**
 
-2. Run the SQL schema from `backend/scripts/init_schema.sql` to create the necessary tables:
-```bash
-mysql -u root -p portfolio_db < backend/scripts/init_schema.sql
-```
+1. Open MySQL command line client:
+   - If MySQL is installed, open Command Prompt and run:
+   ```bash
+   mysql -u root -p
+   ```
+   - Enter your MySQL root password when prompted
+
+2. Create the database:
+   ```sql
+   CREATE DATABASE portfolio_db;
+   USE portfolio_db;
+   ```
+
+3. Run the schema file:
+   ```sql
+   source backend/scripts/init_schema.sql
+   ```
+   Or exit MySQL and run:
+   ```bash
+   mysql -u root -p portfolio_db < backend/scripts/init_schema.sql
+   ```
+
+**Option B: Using MySQL Workbench or phpMyAdmin**
+
+1. Open MySQL Workbench or phpMyAdmin
+2. Connect to your MySQL server
+3. Create a new database named `portfolio_db`
+4. Select the database
+5. Run the SQL from `backend/scripts/init_schema.sql` in the query editor
+
+**Option C: Using XAMPP/WAMP (Windows)**
+
+1. Start MySQL service from XAMPP/WAMP control panel
+2. Open phpMyAdmin (usually at http://localhost/phpmyadmin)
+3. Click "New" to create a new database
+4. Name it `portfolio_db`
+5. Select the database and go to "Import" tab
+6. Upload and run `backend/scripts/init_schema.sql`
 
 ### 4. Run the Server
 
@@ -64,6 +95,14 @@ npm run dev
 ```bash
 npm start
 ```
+
+## Admin Login Credentials
+
+**Default Admin Account:**
+- **Email:** `admin@gmail.com`
+- **Password:** `serk1234`
+
+> ⚠️ **Important:** Change these credentials in production! Update the password hash in the database after running the schema.
 
 ## API Endpoints
 

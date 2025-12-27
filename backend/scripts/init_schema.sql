@@ -80,12 +80,12 @@ CREATE INDEX idx_skills_display_order ON skills(display_order);
 CREATE INDEX idx_experiences_display_order ON experiences(display_order);
 CREATE INDEX idx_contact_messages_read ON contact_messages(read);
 
--- Insert demo admin user (password: password123)
--- Password hash for 'password123' using bcrypt
+-- Insert admin user (password: serk1234)
+-- Password hash for 'serk1234' using bcrypt
 -- Note: Generate UUID in application code, using a placeholder here
 INSERT INTO admin_users (id, email, password_hash) 
-VALUES ('00000000-0000-0000-0000-000000000001', 'admin@example.com', '$2b$10$YIjlrjzVHDfCKxKv3I5qOu.GH8nVmOPrKWCx8CY3N6FPUQqmZKDQq')
-ON DUPLICATE KEY UPDATE email = email;
+VALUES ('00000000-0000-0000-0000-000000000001', 'admin@gmail.com', '$2a$10$PEkNnz/lSwAgZAhs7WlbgO6SDJZaTfF/ZUgw7OR4dXEaOgl3nx5v6')
+ON DUPLICATE KEY UPDATE email = email, password_hash = VALUES(password_hash);
 
 -- Insert sample about content
 INSERT INTO about_content (id, content)

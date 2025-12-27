@@ -33,15 +33,17 @@ if (process.env.DATABASE_URL) {
 
 const pool = mysql.createPool(connectionConfig);
 
-// Test connection
+// Test connection (non-blocking)
 pool.getConnection()
   .then(connection => {
     console.log('✅ MySQL database connected successfully');
     connection.release();
   })
   .catch(err => {
-    console.error('❌ Database connection error:', err);
-    process.exit(-1);
+    console.error('❌ Database connection error:', err.message);
+    console.error('❌ Full error:', err);
+    console.error('💡 Check your .env file and ensure MySQL is running');
+    // Don't exit - let the app start and show errors on API calls
   });
 
 module.exports = pool;

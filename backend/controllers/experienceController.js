@@ -5,24 +5,34 @@ const getExperiences = async (req, res) => {
   try {
     const experiences = await Experience.findAll();
     
+    // Handle empty results
+    if (!experiences || experiences.length === 0) {
+      return res.json([]);
+    }
+    
     // Transform to frontend format
     const formatted = experiences.map(exp => {
-      const dateParts = exp.date_range.split(' - ');
+      if (!exp) return null;
+      const dateParts = (exp.date_range || '').split(' - ');
       return {
         id: exp.id,
         position: exp.title,
         company: exp.company,
-        startDate: dateParts[0] || exp.date_range,
+        startDate: dateParts[0] || exp.date_range || '',
         endDate: dateParts[1] || '',
-        description: exp.description,
+        description: exp.description || '',
         technologies: [] // Can be extended
       };
-    });
+    }).filter(Boolean);
     
     res.json(formatted);
   } catch (error) {
     console.error('Error fetching experiences:', error);
-    res.status(500).json({ error: 'Failed to fetch experiences' });
+    console.error('Error details:', error.message, error.stack);
+    res.status(500).json({ 
+      error: 'Failed to fetch experiences',
+      details: process.env.NODE_ENV === 'development' ? error.message : undefined
+    });
   }
 };
 

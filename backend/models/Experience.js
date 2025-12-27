@@ -3,12 +3,17 @@ const { generateUUID } = require('../utils/uuid');
 
 class Experience {
   static async findAll() {
-    const [rows] = await pool.execute(
-      `SELECT id, title, company, date_range, description, type
-       FROM experiences
-       ORDER BY display_order ASC, created_at DESC`
-    );
-    return rows;
+    try {
+      const [rows] = await pool.execute(
+        `SELECT id, title, company, date_range, description, type
+         FROM experiences
+         ORDER BY display_order ASC, created_at DESC`
+      );
+      return rows;
+    } catch (error) {
+      console.error('Experience.findAll error:', error);
+      throw error;
+    }
   }
 
   static async findById(id) {

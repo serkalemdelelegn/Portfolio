@@ -6,9 +6,15 @@ const getSkills = async (req, res) => {
     const category = req.query.category || null;
     const skills = await Skill.findAll(category);
     
+    // Handle empty results
+    if (!skills || skills.length === 0) {
+      return res.json([]);
+    }
+    
     // Group by category for public API
     if (!req.admin) {
       const grouped = skills.reduce((acc, skill) => {
+        if (!skill || !skill.category || !skill.name) return acc;
         if (!acc[skill.category]) {
           acc[skill.category] = [];
         }
@@ -29,7 +35,12 @@ const getSkills = async (req, res) => {
     res.json(skills);
   } catch (error) {
     console.error('Error fetching skills:', error);
-    res.status(500).json({ error: 'Failed to fetch skills' });
+    console.error('Error details:', error.message);
+    console.error('Stack:', error.stack);
+    res.status(500).json({ 
+      error: 'Failed to fetch skills',
+      details: process.env.NODE_ENV === 'development' ? error.message : undefined
+    });
   }
 };
 

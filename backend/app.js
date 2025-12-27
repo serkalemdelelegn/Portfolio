@@ -19,6 +19,27 @@ app.get('/health', (req, res) => {
   res.json({ status: 'OK', message: 'Server is running' });
 });
 
+// Database connection test endpoint
+app.get('/api/test-db', async (req, res) => {
+  try {
+    const pool = require('./config/db');
+    const [rows] = await pool.execute('SELECT 1 as test');
+    res.json({ 
+      status: 'OK', 
+      message: 'Database connection successful',
+      test: rows[0]
+    });
+  } catch (error) {
+    console.error('Database test error:', error);
+    res.status(500).json({ 
+      status: 'ERROR', 
+      message: 'Database connection failed',
+      error: error.message,
+      details: process.env.NODE_ENV === 'development' ? error.stack : undefined
+    });
+  }
+});
+
 // API Routes
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/about', require('./routes/aboutRoutes'));
@@ -36,9 +57,11 @@ app.use('/api/admin/experience', require('./routes/experienceRoutes'));
 
 // Error handling middleware
 app.use((err, req, res, next) => {
-  console.error('Error:', err);
+  console.error('❌ Error:', err);
+  console.error('Stack:', err.stack);
   res.status(err.status || 500).json({
-    error: err.message || 'Internal server error'
+    error: err.message || 'Internal server error',
+    ...(process.env.NODE_ENV === 'development' && { stack: err.stack })
   });
 });
 
