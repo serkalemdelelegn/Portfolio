@@ -1,21 +1,10 @@
 "use client"
-import { useLanguage } from "@/lib/language-context"
-import { translations } from "@/lib/i18n"
 import Navbar from "@/components/navbar"
 import Footer from "@/components/footer"
 import ThemeToggle from "@/components/theme-toggle"
 import { Calendar, Award, Code, Heart } from "lucide-react"
 
 export default function AboutPage() {
-  const { language } = useLanguage()
-  const t = (path: string) => {
-    const keys = path.split(".")
-    let value: any = translations[language]
-    for (const key of keys) {
-      value = value?.[key]
-    }
-    return value || path
-  }
 
   return (
     <div className="min-h-screen bg-background text-foreground transition-colors">
@@ -26,7 +15,7 @@ export default function AboutPage() {
         <div className="grid lg:grid-cols-2 gap-16 items-center mb-24">
           <div className="order-2 lg:order-1 space-y-6">
             <h1 className="text-5xl md:text-6xl font-bold tracking-tight text-primary">
-              {t("nav.about")} Me
+              About Me
             </h1>
             <p className="text-xl text-muted-foreground leading-relaxed">
               Hi, I'm a passionate full-stack developer with a love for creating beautiful and functional web

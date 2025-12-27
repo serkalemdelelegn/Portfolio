@@ -1,8 +1,5 @@
 "use client"
 
-import { useLanguage } from "@/lib/language-context"
-import { translations } from "@/lib/i18n"
-
 const EXPERIENCE_DATA = [
   {
     title: "Senior Developer",
@@ -25,20 +22,10 @@ const EXPERIENCE_DATA = [
 ]
 
 export default function Experience() {
-  const { language } = useLanguage()
-  const t = (path: string) => {
-    const keys = path.split(".")
-    let value: any = translations[language]
-    for (const key of keys) {
-      value = value?.[key]
-    }
-    return value || path
-  }
-
   return (
     <section id="experience" className="py-20 px-4 bg-background">
       <div className="container mx-auto max-w-4xl">
-        <h2 className="text-4xl md:text-5xl font-bold mb-12 text-center">{t("experience.title")}</h2>
+        <h2 className="text-4xl md:text-5xl font-bold mb-12 text-center">Experience & Achievements</h2>
 
         <div className="relative">
           {/* Timeline line */}

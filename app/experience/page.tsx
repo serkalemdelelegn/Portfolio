@@ -1,7 +1,5 @@
 "use client"
 import { useEffect, useState } from "react"
-import { useLanguage } from "@/lib/language-context"
-import { translations } from "@/lib/i18n"
 import Navbar from "@/components/navbar"
 import ThemeToggle from "@/components/theme-toggle"
 import Footer from "@/components/footer"
@@ -17,15 +15,6 @@ interface Experience {
 }
 
 export default function ExperiencePage() {
-  const { language } = useLanguage()
-  const t = (path: string) => {
-    const keys = path.split(".")
-    let value: any = translations[language]
-    for (const key of keys) {
-      value = value?.[key]
-    }
-    return value || path
-  }
 
   const [experiences, setExperiences] = useState<Experience[]>([])
   const [loading, setLoading] = useState(true)
@@ -46,7 +35,7 @@ export default function ExperiencePage() {
       <ThemeToggle />
       <main className="max-w-4xl mx-auto px-4 py-20">
         <div className="space-y-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-primary">{t("nav.experience")}</h1>
+          <h1 className="text-4xl md:text-5xl font-bold text-primary">Experience</h1>
 
           {loading ? (
             <div className="text-center py-10">Loading...</div>

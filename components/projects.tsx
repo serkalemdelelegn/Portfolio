@@ -1,7 +1,5 @@
 "use client"
 
-import { useLanguage } from "@/lib/language-context"
-import { translations } from "@/lib/i18n"
 import { Button } from "@/components/ui/button"
 import { ExternalLink, Github } from "lucide-react"
 
@@ -33,23 +31,13 @@ const SAMPLE_PROJECTS = [
 ]
 
 export default function Projects() {
-  const { language } = useLanguage()
-  const t = (path: string) => {
-    const keys = path.split(".")
-    let value: any = translations[language]
-    for (const key of keys) {
-      value = value?.[key]
-    }
-    return value || path
-  }
-
   return (
     <section id="projects" className="py-32 px-4 bg-muted/30">
       <div className="container mx-auto max-w-6xl">
         <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
           <div className="max-w-xl text-left">
             <h2 className="text-sm font-bold uppercase tracking-[0.3em] text-muted-foreground mb-6">
-              / {t("projects.title")}
+              / Projects Built by Me
             </h2>
             <p className="text-4xl md:text-5xl font-bold tracking-tighter uppercase leading-[0.9]">
               Selected <span className="text-accent">Works.</span>

@@ -1,8 +1,6 @@
 "use client"
 
 import { useState } from "react"
-import { useLanguage } from "@/lib/language-context"
-import { translations } from "@/lib/i18n"
 import { Button } from "@/components/ui/button"
 import { Plus, Trash2, Edit2 } from "lucide-react"
 
@@ -18,8 +16,20 @@ const SAMPLE_SKILLS: Skill[] = [
   { id: "2", name: "Node.js", category: "backend", level: "advanced" },
 ]
 
+const categoryLabels: Record<string, string> = {
+  frontend: "Frontend",
+  backend: "Backend",
+  database: "Database",
+  tools: "Tools",
+}
+
+const levelLabels: Record<string, string> = {
+  beginner: "Beginner",
+  intermediate: "Intermediate",
+  advanced: "Advanced",
+}
+
 export default function SkillsPage() {
-  const { language } = useLanguage()
   const [skills, setSkills] = useState<Skill[]>(SAMPLE_SKILLS)
   const [showForm, setShowForm] = useState(false)
   const [editingId, setEditingId] = useState<string | null>(null)
@@ -28,15 +38,6 @@ export default function SkillsPage() {
     category: "frontend",
     level: "intermediate",
   })
-
-  const t = (path: string) => {
-    const keys = path.split(".")
-    let value: any = translations[language]
-    for (const key of keys) {
-      value = value?.[key]
-    }
-    return value || path
-  }
 
   const handleSave = () => {
     if (editingId) {
@@ -69,7 +70,7 @@ export default function SkillsPage() {
   return (
     <div>
       <div className="flex items-center justify-between mb-8">
-        <h1 className="text-4xl font-bold">{t("admin.manage_skills")}</h1>
+        <h1 className="text-4xl font-bold">Skills</h1>
         <Button
           onClick={() => {
             setEditingId(null)
@@ -79,7 +80,7 @@ export default function SkillsPage() {
           className="gap-2"
         >
           <Plus className="w-4 h-4" />
-          {t("admin.add_new")}
+          Add New
         </Button>
       </div>
 
@@ -106,7 +107,7 @@ export default function SkillsPage() {
               >
                 {categories.map((cat) => (
                   <option key={cat} value={cat}>
-                    {t(`skills.${cat}`)}
+                    {categoryLabels[cat]}
                   </option>
                 ))}
               </select>
@@ -120,7 +121,7 @@ export default function SkillsPage() {
               >
                 {levels.map((level) => (
                   <option key={level} value={level}>
-                    {t(`skills.${level}`)}
+                    {levelLabels[level]}
                   </option>
                 ))}
               </select>
@@ -132,7 +133,7 @@ export default function SkillsPage() {
               {editingId ? "Update" : "Create"} Skill
             </Button>
             <Button onClick={() => setShowForm(false)} variant="outline" className="flex-1">
-              {t("admin.cancel")}
+              Cancel
             </Button>
           </div>
         </div>
@@ -144,7 +145,7 @@ export default function SkillsPage() {
             <div>
               <h3 className="font-bold mb-2">{skill.name}</h3>
               <p className="text-sm text-muted-foreground">
-                {t(`skills.${skill.category}`)} • {t(`skills.${skill.level}`)}
+                {categoryLabels[skill.category]} • {levelLabels[skill.level]}
               </p>
             </div>
             <div className="flex gap-2">

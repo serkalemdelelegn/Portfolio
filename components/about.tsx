@@ -1,25 +1,12 @@
 "use client"
 
-import { useLanguage } from "@/lib/language-context"
-import { translations } from "@/lib/i18n"
-
 export default function About() {
-  const { language } = useLanguage()
-  const t = (path: string) => {
-    const keys = path.split(".")
-    let value: any = translations[language]
-    for (const key of keys) {
-      value = value?.[key]
-    }
-    return value || path
-  }
-
   return (
     <section id="about" className="py-32 px-4">
       <div className="container mx-auto max-w-6xl">
         <div className="grid lg:grid-cols-[1fr_2fr] gap-16 lg:gap-24">
           <div className="sticky top-32 h-fit">
-            <h2 className="text-sm font-bold uppercase tracking-[0.3em] text-primary/60 mb-8">/ {t("about.title")}</h2>
+            <h2 className="text-sm font-bold uppercase tracking-[0.3em] text-primary/60 mb-8">/ About Me</h2>
             <div className="space-y-4">
               <div className="h-1.5 w-16 bg-gradient-to-r from-primary via-accent to-violet-400 rounded-full"></div>
               <p className="text-4xl font-bold tracking-tighter leading-none uppercase">

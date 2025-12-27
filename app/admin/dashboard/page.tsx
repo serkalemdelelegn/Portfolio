@@ -1,20 +1,9 @@
 "use client"
 
-import { useLanguage } from "@/lib/language-context"
-import { translations } from "@/lib/i18n"
 import { FileText, Briefcase, Code2, Trophy } from "lucide-react"
 import Link from "next/link"
 
 export default function DashboardPage() {
-  const { language } = useLanguage()
-  const t = (path: string) => {
-    const keys = path.split(".")
-    let value: any = translations[language]
-    for (const key of keys) {
-      value = value?.[key]
-    }
-    return value || path
-  }
 
   const dashboardItems = [
     { title: "About Me", icon: FileText, href: "/admin/about", color: "text-primary" },
@@ -25,7 +14,7 @@ export default function DashboardPage() {
 
   return (
     <div>
-      <h1 className="text-4xl font-bold mb-2">{t("admin.dashboard")}</h1>
+      <h1 className="text-4xl font-bold mb-2">Admin Dashboard</h1>
       <p className="text-muted-foreground mb-8">Manage your portfolio content</p>
 
       <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">

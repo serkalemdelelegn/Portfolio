@@ -1,8 +1,6 @@
 "use client"
 
 import { useState } from "react"
-import { useLanguage } from "@/lib/language-context"
-import { translations } from "@/lib/i18n"
 import { Button } from "@/components/ui/button"
 import { Plus, Trash2, Edit2 } from "lucide-react"
 
@@ -27,7 +25,6 @@ const SAMPLE_PROJECTS: Project[] = [
 ]
 
 export default function ProjectsPage() {
-  const { language } = useLanguage()
   const [projects, setProjects] = useState<Project[]>(SAMPLE_PROJECTS)
   const [showForm, setShowForm] = useState(false)
   const [editingId, setEditingId] = useState<string | null>(null)
@@ -38,15 +35,6 @@ export default function ProjectsPage() {
     github: "",
     demo: "",
   })
-
-  const t = (path: string) => {
-    const keys = path.split(".")
-    let value: any = translations[language]
-    for (const key of keys) {
-      value = value?.[key]
-    }
-    return value || path
-  }
 
   const handleSave = () => {
     if (editingId) {
@@ -78,7 +66,7 @@ export default function ProjectsPage() {
   return (
     <div>
       <div className="flex items-center justify-between mb-8">
-        <h1 className="text-4xl font-bold">{t("admin.manage_projects")}</h1>
+        <h1 className="text-4xl font-bold">Projects</h1>
         <Button
           onClick={() => {
             setEditingId(null)
@@ -88,14 +76,14 @@ export default function ProjectsPage() {
           className="gap-2"
         >
           <Plus className="w-4 h-4" />
-          {t("admin.add_new")}
+          Add New
         </Button>
       </div>
 
       {showForm && (
         <div className="bg-card p-8 rounded-xl border border-border mb-8 space-y-6">
           <div>
-            <label className="block text-sm font-medium mb-2">{t("admin.title")}</label>
+            <label className="block text-sm font-medium mb-2">Title</label>
             <input
               type="text"
               className="w-full px-4 py-2 rounded-lg bg-background border border-border focus:border-primary focus:outline-none"
@@ -105,7 +93,7 @@ export default function ProjectsPage() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-2">{t("admin.description")}</label>
+            <label className="block text-sm font-medium mb-2">Description</label>
             <textarea
               rows={4}
               className="w-full px-4 py-2 rounded-lg bg-background border border-border focus:border-primary focus:outline-none"
@@ -155,7 +143,7 @@ export default function ProjectsPage() {
               {editingId ? "Update" : "Create"} Project
             </Button>
             <Button onClick={() => setShowForm(false)} variant="outline" className="flex-1">
-              {t("admin.cancel")}
+              Cancel
             </Button>
           </div>
         </div>

@@ -1,21 +1,9 @@
 "use client"
 
-import { useLanguage } from "@/lib/language-context"
-import { translations } from "@/lib/i18n"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 
 export default function Hero() {
-  const { language } = useLanguage()
-  const t = (path: string) => {
-    const keys = path.split(".")
-    let value: any = translations[language]
-    for (const key of keys) {
-      value = value?.[key]
-    }
-    return value || path
-  }
-
   return (
     <section className="min-h-[90vh] flex items-center justify-center px-4 pt-20 pb-20">
       <div className="container mx-auto text-center max-w-4xl">
@@ -30,24 +18,24 @@ export default function Hero() {
         </div>
 
         <h1 className="text-6xl md:text-8xl font-bold mb-8 leading-[0.9] tracking-tighter text-balance uppercase text-primary">
-          {t("hero.name")}
+          Serkalem
         </h1>
 
         <p className="text-lg md:text-xl text-muted-foreground mb-12 text-pretty max-w-2xl mx-auto font-medium">
-          {t("hero.subtitle")}
+          Building elegant solutions with clean code
         </p>
 
         <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
           <Link href="#projects">
             <Button size="lg" className="rounded-full px-8 h-14 text-base font-bold uppercase tracking-widest">
-              {t("hero.cta_projects")}
+              View Projects
             </Button>
           </Link>
           <Link
             href="#contact"
             className="text-sm font-bold uppercase tracking-widest hover:text-accent transition-colors"
           >
-            {t("hero.cta_contact")} →
+            Contact Me →
           </Link>
         </div>
 
@@ -55,7 +43,7 @@ export default function Hero() {
           <div className="text-left">
             <div className="text-4xl font-bold tracking-tighter mb-1">5+</div>
             <div className="text-xs uppercase tracking-widest text-muted-foreground font-bold">
-              {t("projects.title")}
+              Projects Built by Me
             </div>
           </div>
           <div className="text-left">
@@ -64,7 +52,7 @@ export default function Hero() {
           </div>
           <div className="text-left">
             <div className="text-4xl font-bold tracking-tighter mb-1">20+</div>
-            <div className="text-xs uppercase tracking-widest text-muted-foreground font-bold">{t("skills.title")}</div>
+            <div className="text-xs uppercase tracking-widest text-muted-foreground font-bold">Skills</div>
           </div>
           <div className="text-left">
             <div className="text-4xl font-bold tracking-tighter mb-1">10+</div>

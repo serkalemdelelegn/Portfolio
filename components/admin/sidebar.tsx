@@ -1,24 +1,12 @@
 "use client"
 
 import { useRouter } from "next/navigation"
-import { useLanguage } from "@/lib/language-context"
-import { translations } from "@/lib/i18n"
 import { Button } from "@/components/ui/button"
 import { LayoutGrid, FileText, Code2, Trophy, Briefcase, LogOut } from "lucide-react"
 import Link from "next/link"
 
 export default function AdminSidebar() {
   const router = useRouter()
-  const { language } = useLanguage()
-
-  const t = (path: string) => {
-    const keys = path.split(".")
-    let value: any = translations[language]
-    for (const key of keys) {
-      value = value?.[key]
-    }
-    return value || path
-  }
 
   const handleLogout = () => {
     localStorage.removeItem("admin_auth")
@@ -55,7 +43,7 @@ export default function AdminSidebar() {
       <div className="p-4 border-t border-border">
         <Button onClick={handleLogout} variant="outline" className="w-full justify-start gap-2 bg-transparent">
           <LogOut className="w-4 h-4" />
-          {t("admin.logout")}
+          Logout
         </Button>
       </div>
     </aside>

@@ -2,22 +2,11 @@
 import { useState } from "react"
 import type React from "react"
 
-import { useLanguage } from "@/lib/language-context"
-import { translations } from "@/lib/i18n"
 import Navbar from "@/components/navbar"
 import ThemeToggle from "@/components/theme-toggle"
 import Footer from "@/components/footer"
 
 export default function ContactPage() {
-  const { language } = useLanguage()
-  const t = (path: string) => {
-    const keys = path.split(".")
-    let value: any = translations[language]
-    for (const key of keys) {
-      value = value?.[key]
-    }
-    return value || path
-  }
 
   const [formData, setFormData] = useState({
     name: "",
@@ -54,8 +43,8 @@ export default function ContactPage() {
       <main className="max-w-2xl mx-auto px-4 py-20">
         <div className="space-y-8">
           <div className="text-center space-y-3">
-            <h1 className="text-4xl md:text-5xl font-bold text-primary">{t("nav.contact")}</h1>
-            <p className="text-lg text-foreground opacity-80">{t("contact.subtitle") || "Get in touch with me"}</p>
+            <h1 className="text-4xl md:text-5xl font-bold text-primary">Contact</h1>
+            <p className="text-lg text-foreground opacity-80">Get in touch with me</p>
           </div>
 
           {submitted && (

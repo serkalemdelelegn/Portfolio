@@ -12,8 +12,7 @@ A modern, responsive portfolio website with a full-featured admin dashboard for 
 - **Experience** - Timeline of work experience and achievements
 - **Contact** - Contact form for visitors to reach out
 - **Responsive Design** - Mobile-first design that works on all devices
-- **Dark Mode** - Full dark mode support with persistent preference
-- **Multilingual** - Full localization support for English and Amharic
+- **Dark Mode** - Full dark mode support with persistent preference (default)
 
 ### Admin Dashboard
 - **Secure Authentication** - Email and password-based login
@@ -43,7 +42,6 @@ A modern, responsive portfolio website with a full-featured admin dashboard for 
 - **Authentication**: Custom JWT-based system
 - **Database**: PostgreSQL (schema provided)
 - **Deployment**: Vercel
-- **Localization**: Custom i18n system
 
 ## Getting Started
 
@@ -99,8 +97,6 @@ Navigate to `/admin/login` to access the admin panel.
 │   ├── ui/             # shadcn/ui components
 │   └── [other].tsx     # Page components
 ├── lib/
-│   ├── i18n.ts         # Translation system
-│   ├── language-context.tsx
 │   ├── auth.ts         # Authentication utilities
 │   └── db.ts           # Database operations
 ├── scripts/
@@ -130,22 +126,6 @@ Edit the CSS custom properties in `app/globals.css`:
 
 ### Update Content
 All content can be managed from the admin dashboard at `/admin/dashboard`
-
-## Localization
-
-The portfolio supports multiple languages. Currently configured:
-- English (en)
-- Amharic (am)
-
-To add a new language, update the `translations` object in `lib/i18n.ts`:
-
-```typescript
-export const translations = {
-  en: { /* ... */ },
-  am: { /* ... */ },
-  fr: { /* ... */ }, // Add new language
-}
-```
 
 ## Database (Optional)
 

@@ -1,8 +1,6 @@
 "use client"
 
 import { useState } from "react"
-import { useLanguage } from "@/lib/language-context"
-import { translations } from "@/lib/i18n"
 import { Button } from "@/components/ui/button"
 import { Plus, Trash2, Edit2 } from "lucide-react"
 
@@ -25,7 +23,6 @@ const SAMPLE_EXPERIENCE: Experience[] = [
 ]
 
 export default function ExperiencePage() {
-  const { language } = useLanguage()
   const [experiences, setExperiences] = useState<Experience[]>(SAMPLE_EXPERIENCE)
   const [showForm, setShowForm] = useState(false)
   const [editingId, setEditingId] = useState<string | null>(null)
@@ -35,15 +32,6 @@ export default function ExperiencePage() {
     date: "",
     description: "",
   })
-
-  const t = (path: string) => {
-    const keys = path.split(".")
-    let value: any = translations[language]
-    for (const key of keys) {
-      value = value?.[key]
-    }
-    return value || path
-  }
 
   const handleSave = () => {
     if (editingId) {
@@ -74,7 +62,7 @@ export default function ExperiencePage() {
   return (
     <div>
       <div className="flex items-center justify-between mb-8">
-        <h1 className="text-4xl font-bold">{t("admin.manage_experience")}</h1>
+        <h1 className="text-4xl font-bold">Experience</h1>
         <Button
           onClick={() => {
             setEditingId(null)
@@ -84,7 +72,7 @@ export default function ExperiencePage() {
           className="gap-2"
         >
           <Plus className="w-4 h-4" />
-          {t("admin.add_new")}
+          Add New
         </Button>
       </div>
 
@@ -139,7 +127,7 @@ export default function ExperiencePage() {
               {editingId ? "Update" : "Create"} Experience
             </Button>
             <Button onClick={() => setShowForm(false)} variant="outline" className="flex-1">
-              {t("admin.cancel")}
+              Cancel
             </Button>
           </div>
         </div>

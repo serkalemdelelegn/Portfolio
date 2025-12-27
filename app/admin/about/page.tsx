@@ -1,14 +1,12 @@
 "use client"
 
 import { useState } from "react"
-import { useLanguage } from "@/lib/language-context"
 import { Button } from "@/components/ui/button"
 
 const SAMPLE_ABOUT =
   "I'm a passionate full-stack developer with a love for creating beautiful, functional digital experiences. With expertise in modern JavaScript frameworks, I craft solutions that bridge the gap between design and functionality."
 
 export default function AboutPage() {
-  const { language } = useLanguage()
   const [content, setContent] = useState(SAMPLE_ABOUT)
   const [isSaving, setIsSaving] = useState(false)
 

@@ -1,10 +1,8 @@
 "use client"
 
-import { useLanguage } from "@/lib/language-context"
 import { Github, Linkedin, Mail } from "lucide-react"
 
 export default function Footer() {
-  const { language } = useLanguage()
 
   return (
     <footer className="border-t border-border bg-card py-12 px-4">

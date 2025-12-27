@@ -1,8 +1,5 @@
 "use client"
 
-import { useLanguage } from "@/lib/language-context"
-import { translations } from "@/lib/i18n"
-
 const SKILLS_DATA = {
   frontend: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Vue.js"],
   backend: ["Node.js", "Express", "Python", "PostgreSQL", "MongoDB"],
@@ -11,25 +8,15 @@ const SKILLS_DATA = {
 }
 
 export default function Skills() {
-  const { language } = useLanguage()
-  const t = (path: string) => {
-    const keys = path.split(".")
-    let value: any = translations[language]
-    for (const key of keys) {
-      value = value?.[key]
-    }
-    return value || path
-  }
-
   return (
     <section id="skills" className="py-20 px-4 bg-card">
       <div className="container mx-auto max-w-6xl">
-        <h2 className="text-4xl md:text-5xl font-bold mb-12 text-center">{t("skills.title")}</h2>
+        <h2 className="text-4xl md:text-5xl font-bold mb-12 text-center">Skills</h2>
 
         <div className="grid md:grid-cols-2 gap-8">
           <div className="space-y-6">
             <div>
-              <h3 className="text-lg font-semibold text-primary mb-4">{t("skills.frontend")}</h3>
+              <h3 className="text-lg font-semibold text-primary mb-4">Frontend</h3>
               <div className="flex flex-wrap gap-3">
                 {SKILLS_DATA.frontend.map((skill, i) => (
                   <div
@@ -43,7 +30,7 @@ export default function Skills() {
             </div>
 
             <div>
-              <h3 className="text-lg font-semibold text-secondary mb-4">{t("skills.database")}</h3>
+              <h3 className="text-lg font-semibold text-secondary mb-4">Database</h3>
               <div className="flex flex-wrap gap-3">
                 {SKILLS_DATA.database.map((skill, i) => (
                   <div
@@ -59,7 +46,7 @@ export default function Skills() {
 
           <div className="space-y-6">
             <div>
-              <h3 className="text-lg font-semibold text-accent mb-4">{t("skills.backend")}</h3>
+              <h3 className="text-lg font-semibold text-accent mb-4">Backend</h3>
               <div className="flex flex-wrap gap-3">
                 {SKILLS_DATA.backend.map((skill, i) => (
                   <div
@@ -73,7 +60,7 @@ export default function Skills() {
             </div>
 
             <div>
-              <h3 className="text-lg font-semibold text-primary mb-4">{t("skills.tools")}</h3>
+              <h3 className="text-lg font-semibold text-primary mb-4">Tools</h3>
               <div className="flex flex-wrap gap-3">
                 {SKILLS_DATA.tools.map((skill, i) => (
                   <div
